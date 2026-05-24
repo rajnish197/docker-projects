@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:alpine
+    container_name: rajnish-web
+    ports:
+      - "8080:80"
+    networks:
+      - rajnish-net
+
+  db:
+    image: postgres:15-alpine
+    container_name: rajnish-db
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: rajnish
+      POSTGRES_PASSWORD: rajnish123
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - rajnish-net
+
+networks:
+  rajnish-net:
+    driver: bridge
+
+volumes:
+  pgdata:
